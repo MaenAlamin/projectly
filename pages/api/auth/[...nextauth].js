@@ -47,12 +47,12 @@ export const authOptions = {
 };
 
 async function checkUserExists(email) {
-  const response = await fetch(`http://localhost:3005/users/${email}`);
+  const response = await fetch(`${process.env.API_URL}/users/${email}`);
   return response.data;
 }
 
 async function saveUserToDatabase(userData) {
-  const response = await fetch("http://localhost:3005/users", {
+  const response = await fetch(`${process.env.API_URL}/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
