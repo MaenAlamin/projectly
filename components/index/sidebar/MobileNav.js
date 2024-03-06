@@ -14,7 +14,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export const MobileNav = ({ onOpen, ...rest }) => {
   const { data: session } = useSession();
@@ -87,7 +87,7 @@ export const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

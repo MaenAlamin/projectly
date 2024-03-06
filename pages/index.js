@@ -7,7 +7,7 @@ import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react";
 import { Settings } from "@/components/index/Settings";
 import { Projects } from "@/components/index/Projects";
 import { Messages } from "@/components/index/Messages";
-import { Emplyees } from "@/components/index/Emplyees";
+import { Employees } from "@/components/index/Employees";
 import { SidebarContent } from "@/components/index/sidebar/SidebarContent";
 import { MobileNav } from "@/components/index/sidebar/MobileNav";
 import { Dashboard } from "@/components/index/Dashboard";
@@ -29,7 +29,7 @@ export default function Home() {
       case "messages":
         return <Messages />;
       case "employees":
-        return <Emplyees />;
+        return <Employees />;
       case "dashboard":
         return <Dashboard />;
       default:
