@@ -15,7 +15,9 @@ import { Tasks } from "@/components/index/Tasks";
 export async function getServerSideProps() {
   try {
     const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
-    if (!usersRes.ok) throw new Error(usersRes.statusText);
+    if (!usersRes.ok) {
+      throw new Error(usersRes.statusText);
+    }
     const usersData = await usersRes.json();
     const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
     if (!tasksRes.ok) throw new Error(tasksRes.statusText);
@@ -32,7 +34,7 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({ usersData, projectsData, tasksData }) {
+export default function Home({ usersData, projectsData, tasksData, error }) {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -42,6 +44,12 @@ export default function Home({ usersData, projectsData, tasksData }) {
   const [users, setUsers] = useState(usersData);
   const [projects, setProjects] = useState(projectsData);
   const [tasks, setTasks] = useState(tasksData);
+
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+  }, [error]);
 
   const renderComponent = () => {
     switch (selectedOption) {
