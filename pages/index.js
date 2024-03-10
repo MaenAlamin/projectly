@@ -12,7 +12,7 @@ import { MobileNav } from "@/components/index/sidebar/MobileNav";
 import { Dashboard } from "@/components/index/Dashboard";
 import { Tasks } from "@/components/index/Tasks";
 
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
   try {
     const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
     if (!usersRes.ok) throw new Error(usersRes.statusText);
@@ -30,7 +30,7 @@ export const getServerSideProps = async () => {
   } catch (error) {
     return { props: { error: error.message } };
   }
-};
+}
 
 export default function Home({ usersData, projectsData, tasksData }) {
   const { data: session } = useSession();
