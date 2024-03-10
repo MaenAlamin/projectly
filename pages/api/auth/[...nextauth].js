@@ -47,12 +47,14 @@ export const authOptions = {
 };
 
 async function checkUserExists(email) {
-  const response = await fetch(`${process.env.API_URL}/users/${email}`);
+  const response = await fetch(
+    `https://api-projectly.techtitans.site/users/${email}`
+  );
   return response.data;
 }
 
 async function saveUserToDatabase(userData) {
-  const response = await fetch(`${process.env.API_URL}/users`, {
+  const response = await fetch(`https://api-projectly.techtitans.site/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

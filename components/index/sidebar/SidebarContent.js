@@ -9,16 +9,17 @@ import { NavItem } from "./NavItem";
 import {
   FiBriefcase,
   FiLayout,
-  FiMessageSquare,
+  // FiMessageSquare,
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
+import { FaTasks } from "react-icons/fa";
 
 const LinkItems = [
   { name: "Dashboard", icon: FiLayout },
   { name: "Projects", icon: FiBriefcase },
   { name: "Employees", icon: FiUsers },
-  { name: "Messages", icon: FiMessageSquare },
+  { name: "Tasks", icon: FaTasks },
   { name: "Settings", icon: FiSettings },
 ];
 

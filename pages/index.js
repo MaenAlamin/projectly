@@ -6,30 +6,46 @@ import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react";
 
 import { Settings } from "@/components/index/Settings";
 import { Projects } from "@/components/index/Projects";
-import { Messages } from "@/components/index/Messages";
 import { Employees } from "@/components/index/Employees";
 import { SidebarContent } from "@/components/index/sidebar/SidebarContent";
 import { MobileNav } from "@/components/index/sidebar/MobileNav";
 import { Dashboard } from "@/components/index/Dashboard";
+import { Tasks } from "@/components/index/Tasks";
 
-export default function Home() {
+export const getServerSideProps = async () => {
+  const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
+  const usersData = await usersRes.json();
+  const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
+  const tasksData = await tasksRes.json();
+  const projectsRes = await fetch(
+    `https://api-projectly.techtitans.site/projects`
+  );
+  const projectsData = await projectsRes.json();
+
+  return { props: { usersData, projectsData, tasksData } };
+};
+
+export default function Home({ usersData, projectsData, tasksData }) {
   const { data: session } = useSession();
   const router = useRouter();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selectedOption, setSelectedOption] = useState("dashboard");
+  const [users, setUsers] = useState(usersData);
+  const [projects, setProjects] = useState(projectsData);
+  const [tasks, setTasks] = useState(tasksData);
 
   const renderComponent = () => {
     switch (selectedOption) {
       case "settings":
         return <Settings />;
       case "projects":
-        return <Projects />;
-      case "messages":
-        return <Messages />;
+        return <Projects projects={projects} setProjects={setProjects} />;
+      case "tasks":
+        return <Tasks tasks={tasks} setTasks={setTasks} />;
       case "employees":
-        return <Employees />;
+        return <Employees users={users} setUsers={setUsers} />;
       case "dashboard":
         return <Dashboard />;
       default:
