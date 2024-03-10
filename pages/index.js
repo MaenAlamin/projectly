@@ -15,22 +15,30 @@ import { Tasks } from "@/components/index/Tasks";
 export async function getServerSideProps() {
   try {
     const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
-    if (!usersRes.ok) {
-      throw new Error(usersRes.statusText);
-    }
-    const usersData = await usersRes.json();
     const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
-    if (!tasksRes.ok) throw new Error(tasksRes.statusText);
-    const tasksData = await tasksRes.json();
     const projectsRes = await fetch(
       `https://api-projectly.techtitans.site/projects`
     );
-    if (!projectsRes.ok) throw new Error(projectsRes.statusText);
+
+    if (!usersRes.ok || !tasksRes.ok || !projectsRes.ok) {
+      throw new Error("Failed To Fetch Data");
+    }
+
+    const usersData = await usersRes.json();
+    const tasksData = await tasksRes.json();
     const projectsData = await projectsRes.json();
 
-    return { props: { usersData, projectsData, tasksData } };
+    return { props: { usersData, projectsData, tasksData, error: null } };
   } catch (error) {
-    return { props: { error: error.message } };
+    console.error(error);
+    return {
+      props: {
+        usersData: [],
+        projectsData: [],
+        tasksData: [],
+        error: error.message,
+      },
+    };
   }
 }
 
