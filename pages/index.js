@@ -7,7 +7,7 @@ import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react";
 import { Settings } from "@/components/index/Settings";
 import { Projects } from "@/components/index/Projects";
 import { Employees } from "@/components/index/Employees";
-import { SidebarContent } from "@/components/index/sidebar/SidebarContent";
+import { Sidebar } from "@/components/index/sidebar/Sidebar";
 import { MobileNav } from "@/components/index/sidebar/MobileNav";
 import { Dashboard } from "@/components/index/Dashboard";
 import { Tasks } from "@/components/index/Tasks";
@@ -53,12 +53,6 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
   const [projects, setProjects] = useState(projectsData);
   const [tasks, setTasks] = useState(tasksData);
 
-  useEffect(() => {
-    if (error) {
-      console.error(error);
-    }
-  }, [error]);
-
   const renderComponent = () => {
     switch (selectedOption) {
       case "settings":
@@ -76,11 +70,17 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
     }
   };
 
+  //if there's no session redirect to login page
   useEffect(() => {
     if (!session) {
       router.push("/login");
     }
   }, [session, router]);
+
+  //for closing the mobile sidebar when changing the tab
+  useEffect(() => {
+    onClose();
+  }, [selectedOption, onClose]);
 
   if (error) {
     return (
@@ -105,7 +105,7 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
       </Head>
       <main>
         <Box minH="100vh" bg={"gray.100"}>
-          <SidebarContent
+          <Sidebar
             onClose={() => onClose}
             display={{ base: "none", md: "block" }}
             setSelectedOption={setSelectedOption}
@@ -119,7 +119,10 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
             size="full"
           >
             <DrawerContent>
-              <SidebarContent onClose={onClose} />
+              <Sidebar
+                onClose={onClose}
+                setSelectedOption={setSelectedOption}
+              />
             </DrawerContent>
           </Drawer>
           <MobileNav onOpen={onOpen} />

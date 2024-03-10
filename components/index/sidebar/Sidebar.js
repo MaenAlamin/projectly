@@ -6,13 +6,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { NavItem } from "./NavItem";
-import {
-  FiBriefcase,
-  FiLayout,
-  // FiMessageSquare,
-  FiSettings,
-  FiUsers,
-} from "react-icons/fi";
+import { FiBriefcase, FiLayout, FiSettings, FiUsers } from "react-icons/fi";
 import { FaTasks } from "react-icons/fa";
 
 const LinkItems = [
@@ -23,7 +17,7 @@ const LinkItems = [
   { name: "Settings", icon: FiSettings },
 ];
 
-export const SidebarContent = ({ setSelectedOption, onClose, ...rest }) => {
+export function Sidebar({ setSelectedOption, onClose, ...rest }) {
   return (
     <Box
       transition="3s ease"
@@ -53,4 +47,4 @@ export const SidebarContent = ({ setSelectedOption, onClose, ...rest }) => {
       ))}
     </Box>
   );
-};
+}

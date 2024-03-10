@@ -1,12 +1,12 @@
 const { Box, Icon, Flex } = require("@chakra-ui/react");
 
-export const NavItem = ({
+export function NavItem({
   setSelectedOption,
   selected,
   icon,
   children,
   ...rest
-}) => {
+}) {
   return (
     <Box style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
@@ -37,4 +37,4 @@ export const NavItem = ({
       </Flex>
     </Box>
   );
-};
+}
