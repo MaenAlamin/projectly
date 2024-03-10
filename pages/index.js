@@ -74,9 +74,19 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
     }
   }, [session, router]);
 
+  if (error) {
+    return (
+      <div>
+        <p>An error occurred while loading the data:</p>
+        <pre>{error}</pre>
+      </div>
+    );
+  }
+
   if (!session) {
     return null;
   }
+
   return (
     <>
       <Head>
