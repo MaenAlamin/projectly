@@ -13,16 +13,23 @@ import { Dashboard } from "@/components/index/Dashboard";
 import { Tasks } from "@/components/index/Tasks";
 
 export const getServerSideProps = async () => {
-  const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
-  const usersData = await usersRes.json();
-  const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
-  const tasksData = await tasksRes.json();
-  const projectsRes = await fetch(
-    `https://api-projectly.techtitans.site/projects`
-  );
-  const projectsData = await projectsRes.json();
+  try {
+    const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
+    if (!usersRes.ok) throw new Error(usersRes.statusText);
+    const usersData = await usersRes.json();
+    const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
+    if (!tasksRes.ok) throw new Error(tasksRes.statusText);
+    const tasksData = await tasksRes.json();
+    const projectsRes = await fetch(
+      `https://api-projectly.techtitans.site/projects`
+    );
+    if (!projectsRes.ok) throw new Error(projectsRes.statusText);
+    const projectsData = await projectsRes.json();
 
-  return { props: { usersData, projectsData, tasksData } };
+    return { props: { usersData, projectsData, tasksData } };
+  } catch (error) {
+    return { props: { error: error.message } };
+  }
 };
 
 export default function Home({ usersData, projectsData, tasksData }) {
