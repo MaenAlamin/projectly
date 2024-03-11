@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Box, Drawer, DrawerContent, useDisclosure } from "@chakra-ui/react";
 
-import { Settings } from "@/components/index/Settings";
 import { Projects } from "@/components/index/Projects";
 import { Employees } from "@/components/index/Employees";
 import { Sidebar } from "@/components/index/sidebar/Sidebar";
@@ -12,7 +11,7 @@ import { MobileNav } from "@/components/index/sidebar/MobileNav";
 import { Dashboard } from "@/components/index/Dashboard";
 import { Tasks } from "@/components/index/Tasks";
 
-export async function getServerSideProps() {
+async function fetchData() {
   try {
     const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
     const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
@@ -28,18 +27,21 @@ export async function getServerSideProps() {
     const tasksData = await tasksRes.json();
     const projectsData = await projectsRes.json();
 
-    return { props: { usersData, projectsData, tasksData, error: null } };
+    return { usersData, tasksData, projectsData, error: null };
   } catch (error) {
     console.error(error);
     return {
-      props: {
-        usersData: [],
-        projectsData: [],
-        tasksData: [],
-        error: error.message,
-      },
+      usersData: [],
+      projectsData: [],
+      tasksData: [],
+      error: error.message,
     };
   }
+}
+
+export async function getServerSideProps() {
+  const { usersData, tasksData, projectsData, error } = await fetchData();
+  return { props: { usersData, projectsData, tasksData, error } };
 }
 
 export default function Home({ usersData, projectsData, tasksData, error }) {
@@ -53,16 +55,38 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
   const [projects, setProjects] = useState(projectsData);
   const [tasks, setTasks] = useState(tasksData);
 
+  const fetchAndSetData = async () => {
+    const { usersData, tasksData, projectsData, error } = await fetchData();
+    setUsers(usersData);
+    setProjects(projectsData);
+    setTasks(tasksData);
+    // Handle error state if necessary
+  };
+
+  useEffect(() => {
+    fetchAndSetData();
+  }, []);
+
   const renderComponent = () => {
     switch (selectedOption) {
-      case "settings":
-        return <Settings />;
       case "projects":
-        return <Projects projects={projects} setProjects={setProjects} />;
+        return (
+          <Projects
+            projects={projects}
+            setProjects={setProjects}
+            fetchData={fetchAndSetData}
+          />
+        );
       case "tasks":
-        return <Tasks tasks={tasks} setTasks={setTasks} />;
+        return (
+          <Tasks
+            tasks={tasks}
+            setTasks={setTasks}
+            fetchData={fetchAndSetData}
+          />
+        );
       case "employees":
-        return <Employees users={users} setUsers={setUsers} />;
+        return <Employees users={users} />;
       case "dashboard":
         return <Dashboard />;
       default:

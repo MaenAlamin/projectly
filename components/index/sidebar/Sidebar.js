@@ -6,7 +6,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { NavItem } from "./NavItem";
-import { FiBriefcase, FiLayout, FiSettings, FiUsers } from "react-icons/fi";
+import { FiBriefcase, FiLayout, FiUsers } from "react-icons/fi";
 import { FaTasks } from "react-icons/fa";
 
 const LinkItems = [
@@ -14,7 +14,6 @@ const LinkItems = [
   { name: "Projects", icon: FiBriefcase },
   { name: "Employees", icon: FiUsers },
   { name: "Tasks", icon: FaTasks },
-  { name: "Settings", icon: FiSettings },
 ];
 
 export function Sidebar({ setSelectedOption, onClose, ...rest }) {

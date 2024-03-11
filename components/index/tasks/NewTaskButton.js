@@ -3,7 +3,6 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -18,9 +17,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
-import { Form } from "@/components/login/Form";
 
-export function NewTaskButton() {
+export function NewTaskButton({ fetchData }) {
   const [newTaskData, setNewTaskData] = useState({
     name: "",
     status: "Todo",
@@ -138,6 +136,9 @@ export function NewTaskButton() {
         })
           .then((response) => response.json())
           .then((data) => console.log(data))
+          .then(() => {
+            fetchData();
+          })
           .catch((error) => {
             console.error("Error: ", error);
           });
@@ -180,9 +181,6 @@ export function NewTaskButton() {
               <FormErrorMessage>
                 Please Write the Title with at least 3 letters
               </FormErrorMessage>
-              <FormHelperText>
-                Enter the name you'd like to set as the task's name.
-              </FormHelperText>
             </FormControl>
 
             <FormControl

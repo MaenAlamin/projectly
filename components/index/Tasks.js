@@ -13,7 +13,7 @@ const tableHead = [
   { id: 5, title: "Finished on", isNumeric: false },
 ];
 
-export function Tasks({ tasks, setTasks }) {
+export function Tasks({ tasks, setTasks, fetchData }) {
   return (
     <Flex direction={"column"}>
       <Flex direction={"row"} marginY={3}>
@@ -21,7 +21,7 @@ export function Tasks({ tasks, setTasks }) {
           Tasks
         </Text>
         <Spacer />
-        <NewTaskButton />
+        <NewTaskButton fetchData={fetchData} />
       </Flex>
       <TasksTable tableHead={tableHead} tableBody={tasks} />
     </Flex>

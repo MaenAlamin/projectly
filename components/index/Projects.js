@@ -6,7 +6,7 @@ import { NewProjectButton } from "./projects/NewProjectButton";
 
 const tableHead = [{ id: 1, title: "Name", isNumeric: false }];
 
-export function Projects({ projects, setProjects }) {
+export function Projects({ projects, setProjects, fetchData }) {
   return (
     <Flex direction={"column"}>
       <Flex direction={"row"} marginY={3}>
@@ -14,7 +14,7 @@ export function Projects({ projects, setProjects }) {
           Projects
         </Text>
         <Spacer />
-        <NewProjectButton />
+        <NewProjectButton fetchData={fetchData} />
       </Flex>
       <ProjectsTable tableHead={tableHead} tableBody={projects} />
     </Flex>

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 
-export function NewProjectButton() {
+export function NewProjectButton({ fetchData }) {
   const [newProjectData, setNewProjectData] = useState({
     name: "",
     description: "",
@@ -69,6 +69,9 @@ export function NewProjectButton() {
         })
           .then((response) => response.json())
           .then((data) => console.log(data))
+          .then(() => {
+            fetchData;
+          })
           .catch((error) => {
             console.error("Error: ", error);
           });
