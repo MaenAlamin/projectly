@@ -21,7 +21,7 @@ export function Tasks({ tasks, setTasks }) {
           Tasks
         </Text>
         <Spacer />
-        {/* <NewTaskButton /> */}
+        <NewTaskButton />
       </Flex>
       <TasksTable tableHead={tableHead} tableBody={tasks} />
     </Flex>

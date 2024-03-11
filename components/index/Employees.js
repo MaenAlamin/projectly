@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { EmployeesTable } from "./employees/EmployeesTable";
-// import useSWR from "swr";
-import { Button, Flex, Spacer, Text } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa";
+import { Flex, Text } from "@chakra-ui/react";
 
-// const fetcher = (url) => fetch(url).then((r) => r.json());
 export function Employees({ users, setUsers }) {
-  // const { data, error } = useSWR(
-  //   `https://api-projectly.techtitans.site/users`,
-  //   fetcher
-  // );
-  // const [employees, setEmployees] = useState([]);
-  // useEffect(() => {
-  //   if (error) setEmployees([]);
-  //   else if (data) setEmployees(data);
-  // }, [data, error]);
-
   const tableHead = [
     { id: 1, title: "Name", isNumeric: false },
     { id: 2, title: "Status", isNumeric: false },
@@ -30,10 +17,6 @@ export function Employees({ users, setUsers }) {
         <Text alignSelf={"center"} fontSize={"xl"} fontWeight={"bold"}>
           Employees
         </Text>
-        <Spacer />
-        {/* <Button leftIcon={<FaPlus />} colorScheme="blue" variant="solid">
-          Add New
-        </Button> */}
       </Flex>
       <EmployeesTable tableHead={tableHead} tableBody={users} />
     </Flex>

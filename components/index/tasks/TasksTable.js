@@ -14,6 +14,7 @@ import {
 import React from "react";
 
 export function TasksTable({ tableHead, tableBody }) {
+  console.log("tasks: ", tableBody);
   return (
     <TableContainer>
       <Table border={"1px black"} variant={"striped"}>
@@ -29,11 +30,11 @@ export function TasksTable({ tableHead, tableBody }) {
         <Tbody>
           {tableBody?.map((row) => (
             <Tr key={row.id}>
-              <Td>{row.title}</Td>
-              <Td>{row.employee}</Td>
+              <Td>{row.name}</Td>
+              <Td>{row.user.name}</Td>
               <Td>{row.status}</Td>
-              <Td>{row.created_on}</Td>
-              <Td>{row.finished_on ? row.finished_on : "_"}</Td>
+              <Td>{row.createdAt}</Td>
+              <Td>{row.finishedAt ? row.finishedAt : "_"}</Td>
             </Tr>
           ))}
         </Tbody>

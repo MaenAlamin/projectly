@@ -42,21 +42,12 @@ export function EmployeesTable({ tableHead, tableBody }) {
                   </Center>
                 </Flex>
               </Td>
-              <Td>{row.taskStatus}</Td>
-              <Td>{row.email}</Td>
-              <Td>{row.role}</Td>
+              <Td>{row?.tasks[0]?.status}</Td>
+              <Td>{row?.email}</Td>
+              <Td>{row?.role?.name}</Td>
             </Tr>
           ))}
         </Tbody>
-        {/* <Tfoot>
-          <Tr>
-            {tableHead?.map((head) => (
-              <Th key={head.id} isNumeric={head.isNumeric}>
-                {head.title}
-              </Th>
-            ))}
-          </Tr>
-        </Tfoot> */}
       </Table>
     </TableContainer>
   );

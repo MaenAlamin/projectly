@@ -1,6 +1,9 @@
+import React, { useRef, useState } from "react";
 import {
   Button,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -12,7 +15,6 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 export function NewProjectButton() {
@@ -20,27 +22,12 @@ export function NewProjectButton() {
     name: "",
     description: "",
   });
+  const [isProjectNameTouched, setIsProjectNameTouched] = useState(false);
 
-  const handleProjectCreation = () => {
-    fetch("https://api-projectly.techtitans.site/projects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProjectData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => {
-        console.error("Error: ", error);
-      });
-    onClose();
-    emptyFields();
-  };
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -50,16 +37,46 @@ export function NewProjectButton() {
     }));
   };
 
-  const emptyFields = () => {
+  const handleBlur = () => {
+    setIsProjectNameTouched(true);
+  };
+
+  const clearFields = () => {
     setNewProjectData({
       name: "",
       description: "",
     });
+    setIsProjectNameTouched(false);
   };
 
-  useEffect(() => {
-    emptyFields();
-  }, [onClose, onOpen]);
+  const handleClose = () => {
+    onClose();
+    clearFields();
+  };
+
+  const isProjectNameError =
+    newProjectData.name.length < 3 && isProjectNameTouched;
+
+  const handleProjectCreation = () => {
+    try {
+      if (!isProjectNameError) {
+        fetch("https://api-projectly.techtitans.site/projects", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newProjectData),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => {
+            console.error("Error: ", error);
+          });
+        onClose();
+        clearFields();
+      }
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -71,7 +88,7 @@ export function NewProjectButton() {
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={handleClose}
         isCentered
       >
         <ModalOverlay />
@@ -79,18 +96,23 @@ export function NewProjectButton() {
           <ModalHeader>Create New Project</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>Project&apos;s Title</FormLabel>
+            <FormControl isRequired isInvalid={isProjectNameError}>
+              <FormLabel>Project's Title</FormLabel>
               <Input
                 name="name"
                 onChange={handleFormChange}
                 ref={initialRef}
+                onBlur={handleBlur}
                 placeholder="Project's Title"
+                required
               />
+              <FormErrorMessage>
+                Please Write a Name with at least 3 letters
+              </FormErrorMessage>
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Project&apos;s Description</FormLabel>
+              <FormLabel>Project's Description</FormLabel>
               <Input
                 name="description"
                 onChange={handleFormChange}
@@ -103,7 +125,7 @@ export function NewProjectButton() {
             <Button onClick={handleProjectCreation} colorScheme="blue" mr={3}>
               Add
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={handleClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
