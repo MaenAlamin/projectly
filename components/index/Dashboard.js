@@ -23,7 +23,7 @@ export function Dashboard({ users, tasks, projects, setSelectedOption }) {
   const currentMonth = `${formattedFirstDay} - ${formattedLastDay}`;
 
   return (
-    <Box height={"70vh"}>
+    <Box height={"700px"}>
       <Stack
         marginBottom={10}
         gap={6}
@@ -41,7 +41,7 @@ export function Dashboard({ users, tasks, projects, setSelectedOption }) {
         <Stats
           title={"Number of Employees"}
           info={users?.length}
-          icon={<FiUsers a />}
+          icon={<FiUsers />}
           date={currentMonth}
           setSelectedOption={setSelectedOption}
           tab={"employees"}

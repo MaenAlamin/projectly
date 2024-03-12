@@ -56,7 +56,7 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
   const [tasks, setTasks] = useState(tasksData);
 
   const fetchAndSetData = async () => {
-    const { usersData, tasksData, projectsData, error } = await fetchData();
+    const { usersData, tasksData, projectsData } = await fetchData();
     setUsers(usersData);
     setProjects(projectsData);
     setTasks(tasksData);

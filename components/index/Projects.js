@@ -1,7 +1,6 @@
-import { Button, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
 import { ProjectsTable } from "./projects/ProjectsTable";
-import { FaPlus } from "react-icons/fa";
 import { NewProjectButton } from "./projects/NewProjectButton";
 
 const tableHead = [{ id: 1, title: "Name", isNumeric: false }];
