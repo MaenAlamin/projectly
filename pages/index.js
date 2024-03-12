@@ -87,7 +87,14 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
       case "employees":
         return <Employees users={users} />;
       case "dashboard":
-        return <Dashboard users={users} tasks={tasks} projects={projects} />;
+        return (
+          <Dashboard
+            users={users}
+            tasks={tasks}
+            projects={projects}
+            setSelectedOption={setSelectedOption}
+          />
+        );
       default:
         return <Dashboard />;
     }

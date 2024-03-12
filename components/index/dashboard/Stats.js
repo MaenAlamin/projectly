@@ -7,7 +7,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-export function Stats({ title, info, date, icon }) {
+export function Stats({ title, info, date, icon, tab, setSelectedOption }) {
   return (
     <>
       <Stat
@@ -17,6 +17,8 @@ export function Stats({ title, info, date, icon }) {
         rounded={"md"}
         padding={4}
         bg={"white"}
+        onClick={() => setSelectedOption(tab)}
+        _hover={{ cursor: "pointer" }}
       >
         <StatLabel>{title}</StatLabel>
         <StatNumber>

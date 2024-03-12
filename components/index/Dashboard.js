@@ -1,14 +1,10 @@
-import { Box, Center, Flex, Stack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Stack } from "@chakra-ui/react";
+import React from "react";
 import { Stats } from "./dashboard/Stats";
 import { FiBriefcase, FiUsers } from "react-icons/fi";
 import { FaTasks } from "react-icons/fa";
 
-export function Dashboard({ users, tasks, projects }) {
-  const [usersStats, setUsersStats] = useState(users);
-  const [projectsStats, setProejctsStats] = useState(projects);
-  const [tasksStats, setTasksStats] = useState(tasks);
-
+export function Dashboard({ users, tasks, projects, setSelectedOption }) {
   const currentDate = new Date();
   const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
@@ -27,28 +23,32 @@ export function Dashboard({ users, tasks, projects }) {
 
   return (
     <Box>
-      {/* <Flex> */}
       <Stack gap={6} direction={["column", "row"]} width={["100%"]}>
         <Stats
           title={"Number of Projects"}
-          info={projectsStats?.length}
+          info={projects?.length}
           icon={<FiBriefcase />}
           date={currentMonth}
+          setSelectedOption={setSelectedOption}
+          tab={"projects"}
         />
         <Stats
           title={"Number of Employees"}
-          info={usersStats?.length}
+          info={users?.length}
           icon={<FiUsers a />}
           date={currentMonth}
+          setSelectedOption={setSelectedOption}
+          tab={"employees"}
         />
         <Stats
           title={"Number of Tasks"}
-          info={tasksStats?.length}
+          info={tasks?.length}
           icon={<FaTasks />}
           date={currentMonth}
+          setSelectedOption={setSelectedOption}
+          tab={"tasks"}
         />
       </Stack>
-      {/* </Flex> */}
     </Box>
   );
 }
