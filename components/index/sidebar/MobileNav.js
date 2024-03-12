@@ -4,6 +4,7 @@ import {
   Flex,
   HStack,
   IconButton,
+  Image,
   Menu,
   MenuButton,
   MenuDivider,
@@ -38,14 +39,12 @@ export const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
-      <Text
+      <Image
         display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
+        width={"35%"}
+        src="/images/logo/logo.png"
+        alt="Projectly"
+      />
 
       <HStack spacing={{ base: "0", md: "6" }}>
         <IconButton

@@ -29,7 +29,11 @@ export function Sidebar({ setSelectedOption, onClose, ...rest }) {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Image src="/images/logo/logo.png" alt="Projectly" />
+        <Image
+          width={["50%", "auto"]}
+          src="/images/logo/logo.png"
+          alt="Projectly"
+        />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
