@@ -4,18 +4,23 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-  StatArrow,
-  StatGroup,
   Flex,
 } from "@chakra-ui/react";
 
 export function Stats({ title, info, date, icon }) {
   return (
     <>
-      <Stat>
+      <Stat
+        border={"1px"}
+        borderColor={"gray.200"}
+        boxShadow={"base"}
+        rounded={"md"}
+        padding={4}
+        bg={"white"}
+      >
         <StatLabel>{title}</StatLabel>
         <StatNumber>
-          <Flex dir="row">
+          <Flex alignItems={"center"} gap={3}>
             {icon} {info}
           </Flex>
         </StatNumber>
