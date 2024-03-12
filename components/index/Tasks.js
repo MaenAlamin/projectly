@@ -23,7 +23,11 @@ export function Tasks({ tasks, setTasks, fetchData }) {
         <Spacer />
         <NewTaskButton fetchData={fetchData} />
       </Flex>
-      <TasksTable tableHead={tableHead} tableBody={tasks} />
+      <TasksTable
+        tableHead={tableHead}
+        tableBody={tasks}
+        fetchData={fetchData}
+      />
     </Flex>
   );
 }

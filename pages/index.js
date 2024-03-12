@@ -60,7 +60,6 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
     setUsers(usersData);
     setProjects(projectsData);
     setTasks(tasksData);
-    // Handle error state if necessary
   };
 
   useEffect(() => {
@@ -94,7 +93,6 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
     }
   };
 
-  //if there's no session redirect to login page
   useEffect(() => {
     if (!session) {
       router.push("/login");

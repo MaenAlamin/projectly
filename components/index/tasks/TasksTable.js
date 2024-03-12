@@ -1,7 +1,4 @@
 import {
-  Avatar,
-  Box,
-  Center,
   Flex,
   Table,
   TableContainer,
@@ -12,9 +9,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
+import { EditTaskButton } from "./EditTaskButton";
+import { DeleteConfirmation } from "./DeleteConfirmation";
 
-export function TasksTable({ tableHead, tableBody }) {
-  console.log("tasks: ", tableBody);
+export function TasksTable({ tableHead, tableBody, fetchData }) {
   return (
     <TableContainer>
       <Table border={"1px black"} variant={"striped"}>
@@ -25,6 +23,7 @@ export function TasksTable({ tableHead, tableBody }) {
                 {head.title}
               </Th>
             ))}
+            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -35,6 +34,12 @@ export function TasksTable({ tableHead, tableBody }) {
               <Td>{row.status}</Td>
               <Td>{row.createdAt}</Td>
               <Td>{row.finishedAt ? row.finishedAt : "_"}</Td>
+              <Td>
+                <Flex dir="row">
+                  <EditTaskButton task={row} fetchData={fetchData} />
+                  <DeleteConfirmation id={row.id} fetchData={fetchData} />
+                </Flex>
+              </Td>
             </Tr>
           ))}
         </Tbody>
