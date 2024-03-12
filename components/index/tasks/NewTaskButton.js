@@ -135,7 +135,6 @@ export function NewTaskButton({ fetchData }) {
           body: JSON.stringify(newTaskData),
         })
           .then((response) => response.json())
-          .then((data) => console.log(data))
           .then(() => {
             fetchData();
           })

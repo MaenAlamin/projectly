@@ -131,7 +131,6 @@ export function EditTaskButton({ fetchData, task }) {
         body: JSON.stringify(taskData),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data))
         .then(() => {
           fetchData();
         })

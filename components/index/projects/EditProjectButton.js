@@ -30,8 +30,6 @@ export function EditProjectButton({ project, fetchData }) {
   const initialRef = useRef(null);
   const finalRef = useRef(null);
 
-  console.log("proj", project);
-
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevState) => ({
@@ -71,7 +69,6 @@ export function EditProjectButton({ project, fetchData }) {
         body: JSON.stringify(projectData),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data))
         .then(fetchData())
         .catch((error) => {
           console.error("Error: ", error);

@@ -18,7 +18,8 @@ export function Stats({ title, info, date, icon, tab, setSelectedOption }) {
         padding={4}
         bg={"white"}
         onClick={() => setSelectedOption(tab)}
-        _hover={{ cursor: "pointer" }}
+        _hover={{ cursor: "pointer", backgroundColor: "#efefef" }}
+        transition={"all"}
       >
         <StatLabel>{title}</StatLabel>
         <StatNumber>

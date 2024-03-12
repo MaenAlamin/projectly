@@ -3,6 +3,7 @@ import React from "react";
 import { Stats } from "./dashboard/Stats";
 import { FiBriefcase, FiUsers } from "react-icons/fi";
 import { FaTasks } from "react-icons/fa";
+import { TaskChart } from "./dashboard/TaskChart";
 
 export function Dashboard({ users, tasks, projects, setSelectedOption }) {
   const currentDate = new Date();
@@ -22,8 +23,13 @@ export function Dashboard({ users, tasks, projects, setSelectedOption }) {
   const currentMonth = `${formattedFirstDay} - ${formattedLastDay}`;
 
   return (
-    <Box>
-      <Stack gap={6} direction={["column", "row"]} width={["100%"]}>
+    <Box height={"70vh"}>
+      <Stack
+        marginBottom={10}
+        gap={6}
+        direction={["column", "row"]}
+        width={["100%"]}
+      >
         <Stats
           title={"Number of Projects"}
           info={projects?.length}
@@ -49,6 +55,7 @@ export function Dashboard({ users, tasks, projects, setSelectedOption }) {
           tab={"tasks"}
         />
       </Stack>
+      <TaskChart taskData={tasks} />
     </Box>
   );
 }

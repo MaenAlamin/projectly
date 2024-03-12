@@ -68,7 +68,6 @@ export function NewProjectButton({ fetchData }) {
           body: JSON.stringify(newProjectData),
         })
           .then((response) => response.json())
-          .then((data) => console.log(data))
           .then(() => {
             fetchData;
           })
