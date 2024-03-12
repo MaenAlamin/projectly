@@ -16,7 +16,11 @@ export function Projects({ projects, setProjects, fetchData }) {
         <Spacer />
         <NewProjectButton fetchData={fetchData} />
       </Flex>
-      <ProjectsTable tableHead={tableHead} tableBody={projects} />
+      <ProjectsTable
+        tableHead={tableHead}
+        tableBody={projects}
+        fetchData={fetchData}
+      />
     </Flex>
   );
 }

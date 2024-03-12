@@ -168,6 +168,7 @@ export function NewTaskButton({ fetchData }) {
             <FormControl
               isRequired
               isInvalid={isTaskNameError && isTaskNameTouched}
+              pb={6}
             >
               <FormLabel>Task's Title</FormLabel>
               <Input

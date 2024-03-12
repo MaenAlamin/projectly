@@ -12,8 +12,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
+import { EditProjectButton } from "./EditProjectButton";
+import { DeleteConfirmation } from "./DeleteConfirmation";
 
-export function ProjectsTable({ tableHead, tableBody }) {
+export function ProjectsTable({ tableHead, tableBody, fetchData }) {
   return (
     <TableContainer>
       <Table border={"1px black"} variant={"striped"}>
@@ -24,12 +26,17 @@ export function ProjectsTable({ tableHead, tableBody }) {
                 {head.title}
               </Th>
             ))}
+            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
           {tableBody?.map((row) => (
             <Tr key={row.id}>
               <Td>{row.name}</Td>
+              <Flex dir="row">
+                <EditProjectButton project={row} fetchData={fetchData} />
+                <DeleteConfirmation id={row.id} fetchData={fetchData} />
+              </Flex>
             </Tr>
           ))}
         </Tbody>

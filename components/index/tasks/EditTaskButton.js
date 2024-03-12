@@ -162,7 +162,8 @@ export function EditTaskButton({ fetchData, task }) {
           <ModalBody pb={6}>
             <FormControl
               isRequired
-              // isInvalid={isTaskNameError && isTaskNameTouched}
+              isInvalid={isTaskNameError && isTaskNameTouched}
+              pb={6}
             >
               <FormLabel>Task's Title</FormLabel>
               <Input
@@ -180,7 +181,7 @@ export function EditTaskButton({ fetchData, task }) {
             </FormControl>
 
             <FormControl
-              // isInvalid={isProjectIdError && isProjectIdTouched}
+              isInvalid={isProjectIdError && isProjectIdTouched}
               isRequired
               pb={6}
             >
@@ -202,7 +203,7 @@ export function EditTaskButton({ fetchData, task }) {
               <FormErrorMessage>Please Select a Project</FormErrorMessage>
             </FormControl>
             <FormControl
-              // isInvalid={isUserIdError && isUserIdTouched}
+              isInvalid={isUserIdError && isUserIdTouched}
               isRequired
               pb={6}
             >
