@@ -8,10 +8,11 @@ export function Form() {
       <Stack>
         <Stack spacing="6">
           <Image
-            src="/images/logo/logo.svg"
+            src="/images/logo/logo.png"
             alt="Projectly"
             w={"50%"}
             marginX={"auto"}
+            marginY={5}
           />
         </Stack>
         <Box

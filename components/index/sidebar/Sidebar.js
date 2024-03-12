@@ -2,6 +2,7 @@ import {
   Box,
   CloseButton,
   Flex,
+  Image,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -29,9 +30,7 @@ export function Sidebar({ setSelectedOption, onClose, ...rest }) {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        <Image src="/images/logo/logo.png" alt="Projectly" />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
