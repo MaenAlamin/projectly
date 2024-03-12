@@ -3,7 +3,6 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -58,9 +57,11 @@ export function NewProjectButton({ fetchData }) {
     newProjectData.name.length < 3 && isProjectNameTouched;
 
   const handleProjectCreation = () => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`;
+
     try {
       if (!isProjectNameError) {
-        fetch("https://api-projectly.techtitans.site/projects", {
+        fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

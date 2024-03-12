@@ -1,7 +1,4 @@
 import {
-  Avatar,
-  Box,
-  Center,
   Flex,
   Table,
   TableContainer,

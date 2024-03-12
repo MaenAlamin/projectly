@@ -13,11 +13,13 @@ import { Tasks } from "@/components/index/Tasks";
 
 async function fetchData() {
   try {
-    const usersRes = await fetch(`https://api-projectly.techtitans.site/users`);
-    const tasksRes = await fetch(`https://api-projectly.techtitans.site/tasks`);
-    const projectsRes = await fetch(
-      `https://api-projectly.techtitans.site/projects`
-    );
+    const usersAPIUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
+    const projectsAPIUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`;
+    const tasksAPIUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/tasks`;
+
+    const usersRes = await fetch(usersAPIUrl);
+    const tasksRes = await fetch(tasksAPIUrl);
+    const projectsRes = await fetch(projectsAPIUrl);
 
     if (!usersRes.ok || !tasksRes.ok || !projectsRes.ok) {
       throw new Error("Failed To Fetch Data");
@@ -69,21 +71,9 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
   const renderComponent = () => {
     switch (selectedOption) {
       case "projects":
-        return (
-          <Projects
-            projects={projects}
-            setProjects={setProjects}
-            fetchData={fetchAndSetData}
-          />
-        );
+        return <Projects projects={projects} fetchData={fetchAndSetData} />;
       case "tasks":
-        return (
-          <Tasks
-            tasks={tasks}
-            setTasks={setTasks}
-            fetchData={fetchAndSetData}
-          />
-        );
+        return <Tasks tasks={tasks} fetchData={fetchAndSetData} />;
       case "employees":
         return <Employees users={users} />;
       case "dashboard":

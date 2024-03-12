@@ -38,10 +38,10 @@ export function NewTaskButton({ fetchData }) {
   const finalRef = useRef(null);
 
   const fetchUsers = async () => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
+
     try {
-      const response = await fetch(
-        "https://api-projectly.techtitans.site/users"
-      );
+      const response = await fetch(apiUrl);
       const data = await response.json();
       setCurrentUsers(data);
     } catch (error) {
@@ -50,10 +50,10 @@ export function NewTaskButton({ fetchData }) {
   };
 
   const fetchProjects = async () => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`;
+
     try {
-      const response = await fetch(
-        "https://api-projectly.techtitans.site/projects"
-      );
+      const response = await fetch(apiUrl);
       const data = await response.json();
       setCurrentProjects(data);
     } catch (error) {
@@ -127,7 +127,9 @@ export function NewTaskButton({ fetchData }) {
         return; // Prevent form submission
       }
       if (!isTaskNameError && !isProjectIdError && !isUserIdError) {
-        fetch("https://api-projectly.techtitans.site/tasks", {
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/tasks`;
+
+        fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

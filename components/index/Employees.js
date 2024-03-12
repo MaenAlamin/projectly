@@ -2,7 +2,7 @@ import React from "react";
 import { EmployeesTable } from "./employees/EmployeesTable";
 import { Flex, Text } from "@chakra-ui/react";
 
-export function Employees({ users, setUsers }) {
+export function Employees({ users }) {
   const tableHead = [
     { id: 1, title: "Name", isNumeric: false },
     { id: 2, title: "Status", isNumeric: false },

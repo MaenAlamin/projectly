@@ -23,7 +23,7 @@ export function Dashboard({ users, tasks, projects, setSelectedOption }) {
   const currentMonth = `${formattedFirstDay} - ${formattedLastDay}`;
 
   return (
-    <Box height={"700px"}>
+    <Box height={"600px"}>
       <Stack
         marginBottom={10}
         gap={6}

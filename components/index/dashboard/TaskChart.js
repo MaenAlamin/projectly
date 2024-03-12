@@ -1,4 +1,4 @@
-import React, { PureComponent, useEffect, useState } from "react";
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -82,8 +82,8 @@ export function TaskChart({ taskData }) {
         data={result}
         margin={{
           top: 5,
-          right: 30,
-          left: 20,
+          right: 5,
+          left: 5,
           bottom: 5,
         }}
       >

@@ -13,7 +13,7 @@ const tableHead = [
   { id: 5, title: "Finished on", isNumeric: false },
 ];
 
-export function Tasks({ tasks, setTasks, fetchData }) {
+export function Tasks({ tasks, fetchData }) {
   return (
     <Flex direction={"column"}>
       <Flex direction={"row"} marginY={3}>

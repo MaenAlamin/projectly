@@ -16,8 +16,9 @@ export function DeleteConfirmation({ id, fetchData }) {
   const cancelRef = React.useRef();
 
   async function handleDelete(id) {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${id}`;
     try {
-      await fetch(`https://api-projectly.techtitans.site/projects/${id}`, {
+      await fetch(apiUrl, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

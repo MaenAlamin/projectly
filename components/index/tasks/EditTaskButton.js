@@ -39,10 +39,10 @@ export function EditTaskButton({ fetchData, task }) {
   const finalRef = useRef(null);
 
   const fetchUsers = async () => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
+
     try {
-      const response = await fetch(
-        "https://api-projectly.techtitans.site/users"
-      );
+      const response = await fetch(apiUrl);
       const data = await response.json();
       setCurrentUsers(data);
     } catch (error) {
@@ -51,10 +51,10 @@ export function EditTaskButton({ fetchData, task }) {
   };
 
   const fetchProjects = async () => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`;
+
     try {
-      const response = await fetch(
-        "https://api-projectly.techtitans.site/projects"
-      );
+      const response = await fetch(apiUrl);
       const data = await response.json();
       setCurrentProjects(data);
     } catch (error) {
@@ -123,7 +123,9 @@ export function EditTaskButton({ fetchData, task }) {
       return;
     }
     if (!isTaskNameError && !isProjectIdError && !isUserIdError) {
-      fetch(`https://api-projectly.techtitans.site/tasks/${id}`, {
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/tasks/${id}`;
+
+      fetch(apiUrl, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

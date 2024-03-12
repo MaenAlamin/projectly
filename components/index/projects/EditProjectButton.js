@@ -60,8 +60,10 @@ export function EditProjectButton({ project, fetchData }) {
     projectData?.name?.length < 3 && isProjectNameTouched;
 
   const handleProjectUpdate = (id) => {
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${id}`;
+
     if (!isProjectNameError) {
-      fetch(`https://api-projectly.techtitans.site/projects/${id}`, {
+      fetch(apiUrl, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
