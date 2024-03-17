@@ -1,6 +1,6 @@
 import { Button, Flex, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
-import { ProjectsTable } from "./projects/ProjectsTable";
+import { ProjectsTable } from "./projects/ProjectsSidebar";
 import { FaPlus } from "react-icons/fa";
 import { TasksTable } from "./tasks/TasksTable";
 import { NewTaskButton } from "./tasks/NewTaskButton";
@@ -15,7 +15,7 @@ const tableHead = [
 
 export function Tasks({ tasks, fetchData }) {
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} p={4}>
       <Flex direction={"row"} marginY={3}>
         <Text alignSelf={"center"} fontSize={"xl"} fontWeight={"bold"}>
           Tasks

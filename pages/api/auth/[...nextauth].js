@@ -1,38 +1,42 @@
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "alamin.maen@gmail.com",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials) => {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/validate`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+          }
+        );
+        const user = await response.json();
+        if (response.ok && user) {
+          return { id: user.id, name: user.name, email: user.email };
+        } else {
+          return null;
+        }
+      },
     }),
   ],
   pages: {
     signIn: "/",
   },
   callbacks: {
-    async signIn({ user, account, profile, email }) {
-      // Check if the user exists in your database
-      const userExists = await checkUserExists(email);
-
-      // If the user doesn't exist, save their data to the database
-      if (!userExists) {
-        await saveUserToDatabase({
-          name: user.name,
-          email: user.email,
-          image: user.image,
-        });
-      }
-
-      // Return true to continue the sign-in process
-      return true;
-    },
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user) {
         token.user = user;
@@ -45,23 +49,5 @@ export const authOptions = {
     },
   },
 };
-
-async function checkUserExists(email) {
-  const response = await fetch(
-    `https://api-projectly.techtitans.site/users/${email}`
-  );
-  return response.data;
-}
-
-async function saveUserToDatabase(userData) {
-  const response = await fetch(`https://api-projectly.techtitans.site/users`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
-  return response.data;
-}
 
 export default NextAuth(authOptions);

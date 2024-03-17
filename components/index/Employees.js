@@ -12,7 +12,7 @@ export function Employees({ users }) {
   ];
 
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} p={4}>
       <Flex direction={"row"} marginY={3}>
         <Text alignSelf={"center"} fontSize={"xl"} fontWeight={"bold"}>
           Employees

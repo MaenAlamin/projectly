@@ -12,7 +12,7 @@ import React from "react";
 import { EditProjectButton } from "./EditProjectButton";
 import { DeleteConfirmation } from "./DeleteConfirmation";
 
-export function ProjectsTable({ tableHead, tableBody, fetchData }) {
+export function ProjectsSidebar({ tableHead, tableBody, fetchData }) {
   return (
     <TableContainer>
       <Table border={"1px black"} variant={"striped"}>
