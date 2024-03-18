@@ -1,6 +1,6 @@
 import { Box, Container, Heading, Image, Stack } from "@chakra-ui/react";
 import React from "react";
-import { ProvidersGroup } from "./ProvidersGroup";
+import { Login } from "./Login";
 
 export function Form() {
   return (
@@ -33,7 +33,7 @@ export function Form() {
               Log in to your account
             </Heading>
           </Stack>
-          <ProvidersGroup />
+          <Login />
         </Box>
       </Stack>
     </Container>

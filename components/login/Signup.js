@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
   Modal,
@@ -17,6 +18,44 @@ import React, { useEffect, useRef, useState } from "react";
 export function Signup() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  function validateForm() {
+    let isValid = true;
+    let newErrors = { name: "", email: "", password: "" };
+
+    // Validate name
+    if (!baseUser.name.trim()) {
+      isValid = false;
+      newErrors.name = "Name is required.";
+    }
+
+    // Validate email
+    if (!baseUser.email.trim()) {
+      isValid = false;
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(baseUser.email)) {
+      isValid = false;
+      newErrors.email = "Email is not valid.";
+    }
+
+    // Validate password
+    if (!baseUser.password.trim()) {
+      isValid = false;
+      newErrors.password = "Password is required.";
+    } else if (baseUser.password.length < 8) {
+      isValid = false;
+      newErrors.password = "Password must be at least 8 characters.";
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  }
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -68,6 +107,9 @@ export function Signup() {
   }
 
   async function handleSubmit() {
+    if (!validateForm()) {
+      return; // Form is not valid, do not submit
+    }
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users`, {
         method: "POST",
@@ -77,7 +119,6 @@ export function Signup() {
         body: JSON.stringify(baseUser),
       });
       handleClose();
-      //   console.log(baseUser);
     } catch (error) {
       console.error("can't create a user, there's an error: ", error);
     }
@@ -95,8 +136,8 @@ export function Signup() {
           <ModalHeader>Create The First Account</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>First name</FormLabel>
+            <FormControl isInvalid={errors.name}>
+              <FormLabel>Name</FormLabel>
               <Input
                 ref={initialRef}
                 name="name"
@@ -104,18 +145,20 @@ export function Signup() {
                 placeholder="Name"
                 onChange={handleFormChange}
               />
+              <FormErrorMessage>{errors.name}</FormErrorMessage>
             </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel>Last name</FormLabel>
+            <FormControl mt={4} isInvalid={errors.email}>
+              <FormLabel>Email</FormLabel>
               <Input
                 name="email"
                 type="email"
                 placeholder="Email"
                 onChange={handleFormChange}
               />
+              <FormErrorMessage>{errors.email}</FormErrorMessage>
             </FormControl>
-            <FormControl mt={4}>
+            <FormControl mt={4} isInvalid={errors.password}>
               <FormLabel>Password</FormLabel>
               <Input
                 name="password"
@@ -123,6 +166,7 @@ export function Signup() {
                 placeholder="Password"
                 onChange={handleFormChange}
               />
+              <FormErrorMessage>{errors.password}</FormErrorMessage>
             </FormControl>
           </ModalBody>
 
