@@ -92,7 +92,7 @@ export function Signup() {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>Create The First Account</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>

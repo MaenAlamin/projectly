@@ -29,13 +29,11 @@ export function Form() {
             marginBottom={6}
             textAlign="center"
           >
-            <Heading size={{ base: "sm", md: "sm" }}>
+            <Heading size={{ base: "sm", md: "md" }}>
               Log in to your account
             </Heading>
           </Stack>
-          <Stack spacing="6">
-            <ProvidersGroup />
-          </Stack>
+          <ProvidersGroup />
         </Box>
       </Stack>
     </Container>

@@ -20,15 +20,7 @@ export function ProvidersGroup() {
     signIn("credentials", { redirect: false, email, password });
   };
   return (
-    <Box
-      as="form"
-      onSubmit={handleSubmit}
-      w="full"
-      maxW="md"
-      p={4}
-      mx="auto"
-      mt={10}
-    >
+    <Box as="form" onSubmit={handleSubmit} w="full" maxW="md" p={4} mx="auto">
       <VStack spacing={4}>
         <FormControl id="email">
           <FormLabel>Email Address</FormLabel>
@@ -47,7 +39,7 @@ export function ProvidersGroup() {
           />
         </FormControl>
 
-        <Button type="submit" colorScheme="blue" isLoading={false}>
+        <Button type="submit" colorScheme="blue" w={"full"}>
           Sign in
         </Button>
         <Signup />
