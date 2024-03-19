@@ -75,7 +75,7 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
       case "tasks":
         return <Tasks tasks={tasks} fetchData={fetchAndSetData} />;
       case "employees":
-        return <Employees users={users} />;
+        return <Employees users={users} fetchData={fetchAndSetData} />;
       case "dashboard":
         return (
           <Dashboard

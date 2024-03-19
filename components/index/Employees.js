@@ -1,8 +1,9 @@
 import React from "react";
 import { EmployeesTable } from "./employees/EmployeesTable";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Spacer, Text } from "@chakra-ui/react";
+import { NewEmployeeButton } from "./employees/NewEmployeeButton";
 
-export function Employees({ users }) {
+export function Employees({ users, fetchData }) {
   const tableHead = [
     { id: 1, title: "Name", isNumeric: false },
     { id: 2, title: "Status", isNumeric: false },
@@ -17,8 +18,14 @@ export function Employees({ users }) {
         <Text alignSelf={"center"} fontSize={"xl"} fontWeight={"bold"}>
           Employees
         </Text>
+        <Spacer />
+        <NewEmployeeButton fetchData={fetchData} />
       </Flex>
-      <EmployeesTable tableHead={tableHead} tableBody={users} />
+      <EmployeesTable
+        tableHead={tableHead}
+        tableBody={users}
+        fetchData={fetchData}
+      />
     </Flex>
   );
 }

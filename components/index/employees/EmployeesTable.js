@@ -12,8 +12,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
+import { DeleteConfirmation } from "./DeleteConfirmation";
+import { EditEmployeeButton } from "./EditEmployeeButton";
 
-export function EmployeesTable({ tableHead, tableBody }) {
+export function EmployeesTable({ tableHead, tableBody, fetchData }) {
   return (
     <TableContainer>
       <Table border={"1px black"} variant={"striped"}>
@@ -42,9 +44,15 @@ export function EmployeesTable({ tableHead, tableBody }) {
                   </Center>
                 </Flex>
               </Td>
-              <Td>{row?.tasks[0]?.status}</Td>
+              <Td>{row?.tasks.length}</Td>
               <Td>{row?.email}</Td>
-              <Td>{row?.role?.name}</Td>
+              <Td>{row?.role}</Td>
+              <Td>
+                <Flex dir="row">
+                  <EditEmployeeButton employee={row} fetchData={fetchData} />
+                  <DeleteConfirmation id={row.id} fetchData={fetchData} />
+                </Flex>
+              </Td>
             </Tr>
           ))}
         </Tbody>
