@@ -107,6 +107,19 @@ export function NewTaskButton({ fetchData }) {
   const isProjectIdError = newTaskData.projectId === "";
   const isUserIdError = newTaskData.userId === "";
 
+  const sendNotification = async () => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/notifications`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: newTaskData.userId,
+        message: "New Task Created For You",
+      }),
+    });
+  };
+
   const handleTaskCreation = () => {
     try {
       // Validate task name
@@ -137,6 +150,7 @@ export function NewTaskButton({ fetchData }) {
           body: JSON.stringify(newTaskData),
         })
           .then((response) => response.json())
+          .then(sendNotification())
           .then(() => {
             fetchData();
           })

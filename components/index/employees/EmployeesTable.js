@@ -14,6 +14,7 @@ import {
 import React from "react";
 import { DeleteConfirmation } from "./DeleteConfirmation";
 import { EditEmployeeButton } from "./EditEmployeeButton";
+import NotificationButton from "./NotificationButton";
 
 export function EmployeesTable({ tableHead, tableBody, fetchData }) {
   return (
@@ -51,6 +52,7 @@ export function EmployeesTable({ tableHead, tableBody, fetchData }) {
                 <Flex dir="row">
                   <EditEmployeeButton employee={row} fetchData={fetchData} />
                   <DeleteConfirmation id={row.id} fetchData={fetchData} />
+                  <NotificationButton user={row} />
                 </Flex>
               </Td>
             </Tr>
