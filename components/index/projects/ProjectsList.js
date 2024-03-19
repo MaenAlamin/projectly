@@ -1,21 +1,41 @@
-import { Box, CloseButton, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, CloseButton, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { ProjectItem } from "./ProjectItem";
+import { NewProjectButton } from "./NewProjectButton";
 
-export function ProjectsList({ onClose, linkItems }) {
+export function ProjectsList({
+  fetchData,
+  projects,
+  setSelectedProject,
+  ...rest
+}) {
   return (
-    <Box borderRight="1px" w={{ base: "full", md: 60 }} pos="fixed" h="full">
+    <Box
+      borderRight="1px"
+      borderColor={"gray.300"}
+      w={96}
+      pos="fixed"
+      h="full"
+      {...rest}
+    >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="xl" fontFamily="monospace" fontWeight="bold">
           Projects
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <NewProjectButton fetchData={fetchData} />
       </Flex>
-      {linkItems.map((link) => (
-        <ProjectItem key={link.name} icon={link.icon}>
-          {link.name}
-        </ProjectItem>
-      ))}
+      <Box mx={4}>
+        {projects.map((link) => (
+          <ProjectItem
+            key={link.name}
+            onClick={() => setSelectedProject(link.id)}
+            set
+            icon={link.icon}
+          >
+            {link.name}
+          </ProjectItem>
+        ))}
+      </Box>
     </Box>
   );
 }

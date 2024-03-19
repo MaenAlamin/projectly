@@ -12,21 +12,20 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 
-export function NewProjectButton({ fetchData }) {
+export function NewProjectButton({ fetchData, ...rest }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = useRef(null);
+
   const [newProjectData, setNewProjectData] = useState({
     name: "",
     description: "",
   });
-  const [isProjectNameTouched, setIsProjectNameTouched] = useState(false);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const initialRef = useRef(null);
-  const finalRef = useRef(null);
+  const [nameError, setNameError] = useState("");
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -36,16 +35,12 @@ export function NewProjectButton({ fetchData }) {
     }));
   };
 
-  const handleBlur = () => {
-    setIsProjectNameTouched(true);
-  };
-
   const clearFields = () => {
     setNewProjectData({
       name: "",
       description: "",
     });
-    setIsProjectNameTouched(false);
+    setNameError("");
   };
 
   const handleClose = () => {
@@ -53,14 +48,21 @@ export function NewProjectButton({ fetchData }) {
     clearFields();
   };
 
-  const isProjectNameError =
-    newProjectData.name.length < 3 && isProjectNameTouched;
+  function validateForm() {
+    let isValid = true;
+    if (newProjectData.name.length < 3) {
+      isValid = false;
+      setNameError("Please Write a Name with at least 3 letters");
+    }
+    return isValid;
+  }
 
   const handleProjectCreation = () => {
     const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`;
 
     try {
-      if (!isProjectNameError) {
+      if (!validateForm()) return;
+      else {
         fetch(apiUrl, {
           method: "POST",
           headers: {
@@ -69,9 +71,7 @@ export function NewProjectButton({ fetchData }) {
           body: JSON.stringify(newProjectData),
         })
           .then((response) => response.json())
-          .then(() => {
-            fetchData;
-          })
+          .then(fetchData)
           .catch((error) => {
             console.error("Error: ", error);
           });
@@ -83,13 +83,18 @@ export function NewProjectButton({ fetchData }) {
 
   return (
     <>
-      <Button leftIcon={<FaPlus />} colorScheme="blue" onClick={onOpen}>
+      <Button
+        leftIcon={<FaPlus />}
+        colorScheme="blue"
+        size={"sm"}
+        onClick={onOpen}
+        {...rest}
+      >
         Add New Project
       </Button>
 
       <Modal
         initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={handleClose}
         isCentered
@@ -99,24 +104,21 @@ export function NewProjectButton({ fetchData }) {
           <ModalHeader>Create New Project</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl isRequired isInvalid={isProjectNameError}>
+            <FormControl isRequired isInvalid={nameError}>
               <FormLabel>Project's Title</FormLabel>
               <Input
                 name="name"
                 onChange={handleFormChange}
                 ref={initialRef}
-                onBlur={handleBlur}
                 placeholder="Project's Title"
                 required
               />
-              <FormErrorMessage>
-                Please Write a Name with at least 3 letters
-              </FormErrorMessage>
+              <FormErrorMessage>{nameError}</FormErrorMessage>
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Project's Description</FormLabel>
-              <Input
+              <Textarea
                 name="description"
                 onChange={handleFormChange}
                 placeholder="Project's Description"
