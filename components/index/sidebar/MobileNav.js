@@ -15,8 +15,14 @@ import {
 } from "@chakra-ui/react";
 import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi";
 import { signOut, useSession } from "next-auth/react";
+import { Notifications } from "./Notifications";
 
-export const MobileNav = ({ onOpen, ...rest }) => {
+export const MobileNav = ({
+  onOpen,
+  notificationsData,
+  fetchNotifications,
+  ...rest
+}) => {
   const { data: session } = useSession();
   return (
     <Flex
@@ -46,11 +52,9 @@ export const MobileNav = ({ onOpen, ...rest }) => {
       />
 
       <HStack spacing={{ base: "0", md: "6" }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
+        <Notifications
+          notifications={notificationsData}
+          fetchNotifications={fetchNotifications}
         />
         <Flex alignItems={"center"}>
           <Menu>

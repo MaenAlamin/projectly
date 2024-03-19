@@ -56,6 +56,7 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
   const [users, setUsers] = useState(usersData);
   const [projects, setProjects] = useState(projectsData);
   const [tasks, setTasks] = useState(tasksData);
+  const [notifications, setNotifications] = useState([]);
 
   const fetchAndSetData = async () => {
     const { usersData, tasksData, projectsData } = await fetchData();
@@ -63,6 +64,26 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
     setProjects(projectsData);
     setTasks(tasksData);
   };
+
+  const fetchNotifications = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/notifications/${session?.user?.id}`
+    );
+    const notificationData = await res.json();
+    setNotifications(notificationData);
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+
+    const id = setInterval(() => {
+      fetchNotifications();
+    }, 15000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
 
   useEffect(() => {
     fetchAndSetData();
@@ -144,7 +165,11 @@ export default function Home({ usersData, projectsData, tasksData, error }) {
               />
             </DrawerContent>
           </Drawer>
-          <MobileNav onOpen={onOpen} />
+          <MobileNav
+            onOpen={onOpen}
+            notificationsData={notifications}
+            fetchNotifications={fetchNotifications}
+          />
           <Box ml={{ base: 0, md: 60 }}>{renderComponent()}</Box>
         </Box>
       </main>
