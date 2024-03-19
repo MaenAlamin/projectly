@@ -33,6 +33,14 @@ export function Comments({ projectId }) {
 
   useEffect(() => {
     fetchComments();
+
+    const id = setInterval(() => {
+      fetchComments();
+    }, 15000);
+
+    return () => {
+      clearInterval(id);
+    };
   }, [projectId]);
 
   const handleSend = async () => {
